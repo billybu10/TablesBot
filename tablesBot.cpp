@@ -72,8 +72,9 @@ int main() {
 
                 }
 
+
                 dpp::message m;
-                m.set_content("``` "+simpleTable.str()+" ```");
+                m.set_content("```\n"+simpleTable.str()+" ```");
         
                 
                 event.reply(m);
