@@ -1,6 +1,7 @@
 #include "include/tabulate.hpp"
 #include "keys/keys.h"
 #include <dpp/dpp.h>
+#include <dpp/unicode_emoji.h>
 
 #include <sstream>
 #include <vector>
@@ -72,6 +73,178 @@ void applyFontAlignment(tabulate::Table& table, std::string parameters){
     }
     
 }
+
+void applyBorderStyle(tabulate::Table& table, std::string borderStyle, int rowLength){
+    if(borderStyle == "dbl_brdr"){
+        table.format()
+            .corner("╬")
+            .border_bottom("═")
+            .border_top("═")
+            .border_left("║")
+            .border_right("║");
+        table.row(0).format()
+            .corner_top_left("╦")
+            .corner_top_right("╦");
+        table.row(table.size()-1).format()
+            .corner_bottom_left("╩")
+            .corner_bottom_right("╩");
+        
+        table.column(rowLength-1).format()
+            .corner_bottom_right("╣")
+            .corner_top_right("╣");
+
+        for(int i = 1; i < table.size()-1; i++){
+            table[i][rowLength-1].format()
+            .corner_top_right("╣")
+            .corner_bottom_right("╣");
+        }
+
+        table[0][rowLength-1].format()
+            .corner_bottom_right("╣");
+        table[table.size()-1][rowLength-1].format()
+            .corner_top_right("╣");
+
+        table.column(0).format()
+            .corner("╠");
+        table[0][0].format()
+            .corner_top_left("╔");
+        table[0][rowLength-1].format()
+            .corner_top_right("╗");
+        table[table.size()-1][0].format()
+            .corner_bottom_left("╚");
+        table[table.size()-1][rowLength-1].format()
+            .corner_bottom_right("╝");
+
+    }else if(borderStyle == "sngl_brdr"){
+        table.format()
+            .corner("┼")
+            .border_bottom("─")
+            .border_top("─")
+            .border_left("│")
+            .border_right("│");
+        table.row(0).format()
+            .corner_top_left("┬")
+            .corner_top_right("┬");
+        table.row(table.size()-1).format()
+            .corner_bottom_left("┴")
+            .corner_bottom_right("┴");
+        
+        table.column(rowLength-1).format()
+            .corner_bottom_right("┤")
+            .corner_top_right("┤");
+
+        for(int i = 1; i < table.size()-1; i++){
+            table[i][rowLength-1].format()
+            .corner_top_right("┤")
+            .corner_bottom_right("┤");
+        }
+
+        table[0][rowLength-1].format()
+            .corner_bottom_right("┤");
+        table[table.size()-1][rowLength-1].format()
+            .corner_top_right("┤");
+
+        table.column(0).format()
+            .corner("├");
+        table[0][0].format()
+            .corner_top_left("┌");
+        table[0][rowLength-1].format()
+            .corner_top_right("┐");
+        table[table.size()-1][0].format()
+            .corner_bottom_left("└");
+        table[table.size()-1][rowLength-1].format()
+            .corner_bottom_right("┘");
+    }else if(borderStyle == "sngl_bld_brdr"){
+        table.format()
+            .corner("╋")
+            .border_bottom("━")
+            .border_top("━")
+            .border_left("┃")
+            .border_right("┃");
+        table.row(0).format()
+            .corner_top_left("┳")
+            .corner_top_right("┳");
+        table.row(table.size()-1).format()
+            .corner_bottom_left("┻")
+            .corner_bottom_right("┻");
+        
+        table.column(rowLength-1).format()
+            .corner_bottom_right("┫")
+            .corner_top_right("┫");
+
+        for(int i = 1; i < table.size()-1; i++){
+            table[i][rowLength-1].format()
+            .corner_top_right("┫")
+            .corner_bottom_right("┫");
+        }
+
+        table[0][rowLength-1].format()
+            .corner_bottom_right("┫");
+        table[table.size()-1][rowLength-1].format()
+            .corner_top_right("┫");
+
+        table.column(0).format()
+            .corner("┣");
+        table[0][0].format()
+            .corner_top_left("┏");
+        table[0][rowLength-1].format()
+            .corner_top_right("┓");
+        table[table.size()-1][0].format()
+            .corner_bottom_left("┗");
+        table[table.size()-1][rowLength-1].format()
+            .corner_bottom_right("┛");
+    }else if(borderStyle == "sngl_rndd_brdr"){
+        table.format()
+            .corner("┼")
+            .border_bottom("─")
+            .border_top("─")
+            .border_left("│")
+            .border_right("│");
+        table.row(0).format()
+            .corner_top_left("┬")
+            .corner_top_right("┬");
+        table.row(table.size()-1).format()
+            .corner_bottom_left("┴")
+            .corner_bottom_right("┴");
+        
+        table.column(rowLength-1).format()
+            .corner_bottom_right("┤")
+            .corner_top_right("┤");
+
+        for(int i = 1; i < table.size()-1; i++){
+            table[i][rowLength-1].format()
+            .corner_top_right("┤")
+            .corner_bottom_right("┤");
+        }
+
+        table[0][rowLength-1].format()
+            .corner_bottom_right("┤");
+        table[table.size()-1][rowLength-1].format()
+            .corner_top_right("┤");
+
+        table.column(0).format()
+            .corner("├");
+        table[0][0].format()
+            .corner_top_left("╭");
+        table[0][rowLength-1].format()
+            .corner_top_right("╮");
+        table[table.size()-1][0].format()
+            .corner_bottom_left("╰");
+        table[table.size()-1][rowLength-1].format()
+            .corner_bottom_right("╯");
+    }else if(borderStyle == "dttd_brdr"){
+        table.format()
+            .corner(":")
+            .border_bottom(".")
+            .border_top(".")
+            .border_left(":")
+            .border_right(":");
+        table.row(0).format()
+            .corner_top_left(".")
+            .corner_top_right(".");
+    }
+
+}
     
 int main() {
     dpp::cluster bot(DSC_TOKEN);
@@ -108,44 +281,57 @@ int main() {
 	});
 
 
-    bot.register_command("formattedtable", [](const dpp::slashcommand_t& e) {
-	        dpp::interaction_modal_response modal("formattedtablemodal", "Enter table data according to the pattern");
-	 
-	            modal.add_component(
-	                dpp::component()
-	                    .set_label("Type table data, add new line to add next row")
-	                    .set_id("table_data_field")
-	                    .set_type(dpp::cot_text)
-	                    .set_placeholder("cell1|cell2|cell3|and so on...")
-	                    .set_max_length(4000)
-	                    .set_text_style(dpp::text_paragraph)
-	            );
-                modal.add_row();
-                modal.add_component(
-	                dpp::component()
-	                    .set_label("Type font style, add new line to add new rule")
-	                    .set_id("font_style_field")
-	                    .set_type(dpp::cot_text)
-	                    .set_placeholder("cell:x:y:b or i or ib\ncolumn/row:number:value")
-	                    .set_max_length(4000)
-	                    .set_text_style(dpp::text_paragraph)
-	            );
-                modal.add_row();
-                modal.add_component(
-	                dpp::component()
-	                    .set_label("Enter font alignment, new line for new rule")
-	                    .set_id("font_alignment_field")
-	                    .set_type(dpp::cot_text)
-	                    .set_placeholder("cell:x:y:l or c or r\ncolumn/row:number:value")
-	                    .set_max_length(4000)
-	                    .set_text_style(dpp::text_paragraph)
+    bot.register_command("formattedtable", [](const dpp::slashcommand_t& event) {
+	    dpp::message msg(event.command.channel_id, "Choose table border style");
+	            
+	            msg.add_component(
+	                dpp::component().add_component(
+	                    dpp::component()
+	                        .set_label("Single border with pluses as corners(default)")
+	                        .set_style(dpp::cos_primary)
+	                        .set_id("dflt")
+	                )
+                    .add_component(
+	                    dpp::component()
+	                        .set_label("Double border")
+	                        .set_style(dpp::cos_primary)
+	                        .set_id("dbl_brdr")
+	                )
+	                .add_component(
+	                    dpp::component()
+	                        .set_label("Single border")
+	                        .set_style(dpp::cos_primary)
+	                        .set_id("sngl_brdr")
+	                )
+                    .add_component(
+	                    dpp::component()
+	                        .set_label("Single bold border")
+	                        .set_style(dpp::cos_primary)
+	                        .set_id("sngl_bld_brdr")
+	                )
+	                .add_component(
+	                    dpp::component()
+	                        .set_label("Single rounded border")
+	                        .set_style(dpp::cos_primary)
+	                        .set_id("sngl_rndd_brdr")
+	                )
+                    
 	            );
 
-	            e.dialog(modal);
+                msg.add_component(
+	                dpp::component().add_component(
+	                    dpp::component()
+	                        .set_label("Dotted border")
+	                        .set_style(dpp::cos_primary)
+	                        .set_id("dttd_brdr")
+	                )
+	            );
+
+	            event.reply(msg);    
 	});
 
     bot.on_form_submit([&bot](const dpp::form_submit_t & event) {
-            if(event.custom_id == "simpletablemodal"){
+            if(event.custom_id == "simpletablemodal" && std::get<std::string>(event.components[0].components[0].value) != ""){
                 std::string tableData = std::get<std::string>(event.components[0].components[0].value);
 
                 tabulate::Table simpleTable;
@@ -160,6 +346,7 @@ int main() {
                 std::vector<tabulate::Table::Row_t> rows = std::vector<tabulate::Table::Row_t>();
 
                 while (getline(tableDataStream, row, del)){
+
                     std::stringstream rowDataStream(row);
 
                     tabulate::Table::Row_t rowCells;
@@ -174,9 +361,9 @@ int main() {
 
                 max_size = std::max_element(rows.begin(), rows.end(), longest)->size();
 
-                for (tabulate::Table::Row_t row : rows)
+                for (tabulate::Table::Row_t& row : rows)
                 {
-                    for(int i = 0; i<(max_size-row.size()); i++){
+                    while(0<(max_size-row.size())){
                         row.push_back("");
                     }
                     simpleTable.add_row(row);
@@ -186,11 +373,10 @@ int main() {
 
                 dpp::message m;
                 m.set_content("```\n"+simpleTable.str()+" ```");
-        
                 
                 event.reply(m);
 
-            }else if(event.custom_id == "formattedtablemodal"){
+            }else if(event.custom_id.contains("formattedtablemodal") && std::get<std::string>(event.components[0].components[0].value) != ""){
                 std::string tableData = std::get<std::string>(event.components[0].components[0].value);
 
                 tabulate::Table formattedTable;
@@ -218,27 +404,58 @@ int main() {
                 }
 
                 max_size = std::max_element(rows.begin(), rows.end(), longest)->size();
+                
 
-                for (tabulate::Table::Row_t row : rows)
+                for (tabulate::Table::Row_t& row : rows)
                 {
-                    for(int i = 0; i<(max_size-row.size()); i++){
+                    while(0<(max_size-row.size())){
                         row.push_back("");
                     }
                     formattedTable.add_row(row);
                 }
                 
-                applyFontAlignment(formattedTable, std::get<std::string>(event.components[2].components[0].value));
-
                 formattedTable.format()
-                .multi_byte_characters(true);
+                    .multi_byte_characters(true);
+
+                applyFontAlignment(formattedTable, std::get<std::string>(event.components[1].components[0].value));
+
+                applyBorderStyle(formattedTable, event.custom_id.substr(20), max_size);
+
+                
 
                 dpp::message m;
                 m.set_content("```\n"+formattedTable.str()+" ```");
-                bot.log(dpp::loglevel::ll_debug ,formattedTable.str());
                 
                 event.reply(m);
             }
 	        
+	    });
+
+        bot.on_button_click([&bot](const dpp::button_click_t & event) {
+	        dpp::interaction_modal_response modal("formattedtablemodal " + event.custom_id, "Enter table data according to the pattern");
+	 
+            modal.add_component(
+                dpp::component()
+                    .set_label("Type table data, add new line to add next row")
+                    .set_id("table_data_field")
+                    .set_type(dpp::cot_text)
+                    .set_placeholder("cell1|cell2|cell3|and so on...")
+                    .set_max_length(4000)
+                    .set_text_style(dpp::text_paragraph)
+            );
+                    
+            modal.add_row();
+            modal.add_component(
+                dpp::component()
+                    .set_label("Enter font alignment, new line for new rule")
+                    .set_id("font_alignment_field")
+                    .set_type(dpp::cot_text)
+                    .set_placeholder("cell:x:y:l or c or r\ncolumn/row:number:value")
+                    .set_max_length(4000)
+                    .set_text_style(dpp::text_paragraph)
+            );
+
+            event.dialog(modal);
 	    });
 
 
